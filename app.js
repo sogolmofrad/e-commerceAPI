@@ -15,10 +15,6 @@ app.get("/", (req, res) => {
 
 app.use('/api/v1/categories', categoryRouter);
 
-app.get('*', (req, res) => {
-  res.status(500).send('Server error!');
-});
-
 app.listen(PORT, () => {
   console.log(`the server is running on http://localhost:${PORT}`);
 });
