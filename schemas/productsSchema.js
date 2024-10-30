@@ -7,7 +7,7 @@ export const createProductsSchema = Joi.object({
     'string.max': 'Name should have a maximum length of 30',
   })
     ,
-  description: Joi.string()min(2).required().messages({
+  description: Joi.string().min(2).required().messages({
     'string.empty': 'Description is required',
     'string.min': 'Description should have a minimum length of 2',
   })
@@ -27,7 +27,7 @@ export const updateProductsSchema = Joi.object({
     'string.max': 'Name should have a maximum length of 30',
   })
     ,
-  description: Joi.string()min(2).required().messages({
+  description: Joi.string().min(2).required().messages({
     'string.empty': 'Description is required',
     'string.min': 'Description should have a minimum length of 2',
   })
