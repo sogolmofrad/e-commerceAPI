@@ -23,7 +23,7 @@ const Order = sequelize.define(
             allowNull: false,
         },
         total: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.STRING,
             allowNull: false,
         },
     },

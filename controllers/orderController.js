@@ -48,20 +48,14 @@ export const createOrder = async (req, res) => {
 }
 
 export const updateOrder = async (req, res) => {
+    console.log("update", req.body)
+
     const orderId = parseInt(req.params.id)
     if (!Number.isSafeInteger(orderId))
         return res.status(400).json({ message: "Invalid Id" })
 
     try {
-        const order = await Order.findByPk(orderId)
-
-        if (!order) {
-            return res.status(404).json({
-                message: "Order does not exist",
-            })
-        }
-
-        await order.update(req.body)
+        await Order.update(req.body, { where: { id: orderId } })
 
         return res.status(200).json({
             data: { id: orderId },
@@ -80,16 +74,10 @@ export const deleteOrder = async (req, res) => {
         return res.status(400).json({ message: "Invalid Id" })
 
     try {
-        const order = await Order.findByPk(orderId)
-        if (!order) {
-            return res.status(404).json({
-                message: "order does not exist",
-            })
-        }
+        await Order.destroy({ where: { id: orderId } })
 
-        await order.destroy()
         return res.status(200).json({
-            data: order,
+            data: { id: orderId },
         })
     } catch (error) {
         return res.status(500).json({
