@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize"
 import sequelize from "../db/db.js"
-import Category from "./category.js"
 
 const Product = sequelize.define(
     "Product",
@@ -10,25 +9,25 @@ const Product = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        title: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        price: {
-            type: DataTypes.DECIMAL(10, 2),
+        name: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         description: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        category: {
-            type: DataTypes.TEXT,
+        price: {
+            type: DataTypes.FLOAT,
             allowNull: false,
         },
-        image: {
-            type: DataTypes.TEXT,
+        categoryid: {
+            type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: "categories",
+                key: "id",
+            },
         },
     },
     {
@@ -36,8 +35,5 @@ const Product = sequelize.define(
         timestamps: false,
     },
 )
-
-Category.hasMany(Product, { foreignKey: "categoryid" })
-Product.belongsTo(Category, { foreignKey: "categoryid" })
 
 export default Product

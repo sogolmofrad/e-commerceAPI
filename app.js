@@ -1,7 +1,11 @@
 import express from "express"
 import dotenv from "dotenv"
-import { router } from "./routes/orderRoutes.js"
 import bodyParser from "body-parser"
+
+import { orderRouter } from "./routers/orderRoutes.js"
+import { categoryRouter } from "./routers/categoryRouter.js"
+import { productRouter } from "./routers/productsRouter.js"
+import { userRouter } from "./routers/userRouter.js"
 
 dotenv.config()
 const app = express()
@@ -13,7 +17,10 @@ app.get("/", (req, res) => {
     res.send("the server is working!")
 })
 
-app.use("/api/v1/orders", router)
+app.use("/api/v1/orders", orderRouter)
+app.use("/api/v1/users", userRouter)
+app.use("/api/v1/products", productRouter)
+app.use("/api/v1/categories", categoryRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`the server is running on http://localhost:${process.env.PORT}`)

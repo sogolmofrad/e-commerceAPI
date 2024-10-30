@@ -1,26 +1,16 @@
 import { DataTypes } from "sequelize"
-import Product from "./product.js"
 import sequelize from "../db/db.js"
 
-const Category = sequelize.define(
-    "Category",
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        name: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
+const Category = sequelize.define("Category", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
     },
-    {
-        tableName: "categories",
-        timestamps: false,
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-)
-
-Category.hasMany(Product, { foreignKey: "categoryid" })
+})
 
 export default Category

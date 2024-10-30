@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize"
-import User from "./user.js"
+import User from "./User.js"
 import sequelize from "../db/db.js"
 
 const Order = sequelize.define(
