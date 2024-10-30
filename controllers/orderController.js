@@ -1,7 +1,7 @@
 import Order from "../models/order.js"
 
 export const getAllOrders = async (req, res) => {
-    const orders = await Order.findAll()
+    const orders = await Order.findAll({ order: [["id", "ASC"]] })
 
     return res.status(200).json({
         status: "success",
