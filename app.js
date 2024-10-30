@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import "./db/db.js";
 import userRouter from "./routers/userRouter.js";
 import productsRouter from './routers/productsRouter.js';
+import categoryRouter from './routers/categoryRouter.js';
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 app.use("/api/v1/users", userRouter);
 
 app.use('/api/v1/products', productsRouter);
+
+app.use('/api/v1/categories', categoryRouter);
 
 
 app.listen(PORT, () => {
