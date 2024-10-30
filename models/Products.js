@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/db.js';
 
-const products = sequelize.define('products', {
+const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -19,7 +19,7 @@ const products = sequelize.define('products', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  categoryId: {
+  categoryid: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -27,6 +27,9 @@ const products = sequelize.define('products', {
       key: 'id',
     },
   },
+}, {
+  tableName: 'products',
+  timestamps: false,
 });
 
-export default products;
+export default Product;

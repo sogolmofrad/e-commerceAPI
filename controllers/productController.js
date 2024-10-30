@@ -1,9 +1,9 @@
-import products from '../models/Products.js';
+import Product from '../models/Products.js';
 import { CustomError } from '../utils/errorHandler.js';
 
 export const getProducts = async (req, res, next) => {
     try {
-        const productsList = await products.findAll();
+        const productsList = await Product.findAll();
         res.json(productsList);
     } catch (error) {
         console.error('Error fetching Products:', error);
@@ -12,9 +12,9 @@ export const getProducts = async (req, res, next) => {
 };
 
 export const getProductById = async (req, res, next) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
     try {
-        const product = await products.findByPk(id);
+        const product = await Product.findByPk(id);
         if (!product) {
             return next(new CustomError('Product not found', 404));
           }
@@ -26,9 +26,9 @@ export const getProductById = async (req, res, next) => {
 };
 
 export const createProduct = async (req, res, next) => {
-    const { name, description, price, categoryId } = req.body;
+    const { name, description, price, categoryid } = req.body;
     try {
-        const newProduct = await products.create({ name, description, price, categoryId });
+        const newProduct = await Product.create({ name, description, price, categoryid });
         res.status(201).json(newProduct);
     } catch (error) {
         console.error('Error creating product:', error);
@@ -38,14 +38,14 @@ export const createProduct = async (req, res, next) => {
 
 export const updateProduct = async (req, res, next) => {
     const { id } = req.params;
-    const { name, description, price, categoryId } = req.body;
+    const { name, description, price, categoryid } = req.body;
     try {
-        const product = await products.findByPk(id);
+        const product = await Product.findByPk(id);
         if (!product) {
           return next(new CustomError('Product not found', 404));
         }
     
-        await product.update({ name, description, price, categoryId });
+        await product.update({ name, description, price, categoryid });
         res.json(product);
       } catch (error) {
         console.error('Error updating product:', error);
@@ -56,7 +56,7 @@ export const updateProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
     const { id } = req.params;
     try {
-        const product = await products.findByPk(id);
+        const product = await Product.findByPk(id);
         if (!product) {
             return next(new CustomError('Product not found', 404));
           }
