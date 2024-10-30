@@ -19,7 +19,7 @@ const Order = sequelize.define(
             },
         },
         products: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER),
+            type: DataTypes.JSONB,
             allowNull: false,
         },
         total: {
