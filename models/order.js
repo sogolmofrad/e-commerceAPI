@@ -1,8 +1,8 @@
-// models/Order.js
 import { DataTypes } from "sequelize";
 import User from "./User.js";
 import Product from "./Product.js"; 
 import sequelize from "../db/db.js";
+import OrderProduct from "./OrderProduct.js";
 
 const Order = sequelize.define(
     "Order",
@@ -22,26 +22,29 @@ const Order = sequelize.define(
         },
         products: {
             type: DataTypes.JSONB,
-            allowNull: true, 
+            allowNull: true,
         },
         total: {
-            type: DataTypes.FLOAT, 
-            allowNull: true, 
+            type: DataTypes.FLOAT,
+            allowNull: true,
         },
     },
     {
         tableName: "orders",
         timestamps: false,
-    },
+    }
 );
-////Inna's changes/////////////////////////////////////////////////////////////////////////
+//// Changes/////////////////////////////////////////////////////////////////////////
 Order.belongsToMany(Product, {
-    through: "OrderProducts",  
-    foreignKey: "orderId",
+    through: OrderProduct, 
+    foreignKey: "orderId", 
+    otherKey: "productId" 
 });
+
 Product.belongsToMany(Order, {
-    through: "OrderProducts",
-    foreignKey: "productId",
+    through: OrderProduct, 
+    foreignKey: "productId", 
+    otherKey: "orderId" 
 });
 
 User.hasMany(Order, { foreignKey: "userid" });
