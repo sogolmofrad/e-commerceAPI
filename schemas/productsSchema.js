@@ -32,7 +32,7 @@ export const updateProductsSchema = Joi.object({
     'string.min': 'Description should have a minimum length of 2',
   })
     ,
-  price: Joi.number().integer().min(0).required().messages({
+  price: Joi.number().integer().min(0).optional().messages({
     'number.empty': 'Price is required',
     'number.min': 'Price should be a positive number',
   })
