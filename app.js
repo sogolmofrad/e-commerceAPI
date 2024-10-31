@@ -4,7 +4,7 @@ import bodyParser from "body-parser"
 
 import { orderRouter } from "./routers/orderRoutes.js"
 import { categoryRouter } from "./routers/categoryRouter.js"
-import { productRouter } from "./routers/productsRouter.js"
+import { productsRouter } from "./routers/productsRouter.js";
 import { userRouter } from "./routers/userRouter.js"
 
 dotenv.config()
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/orders", orderRouter)
 app.use("/api/v1/users", userRouter)
-app.use("/api/v1/products", productRouter)
+app.use("/api/v1/products", productsRouter)
 app.use("/api/v1/categories", categoryRouter)
 
 app.listen(process.env.PORT, () => {

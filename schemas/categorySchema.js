@@ -1,9 +1,19 @@
-import Joi from "joi"
+import Joi from 'joi';
 
 export const createCategorySchema = Joi.object({
-    name: Joi.string().required(),
+  id: Joi.forbidden().messages({
+    'any.unknown': 'ID is not allowed',
+  }),
+  name: Joi.string().required().messages({
+  'string.empty': 'Name is required',
 })
+});
 
 export const updateCategorySchema = Joi.object({
-    name: Joi.string().required(),
+  id: Joi.forbidden().messages({
+    'any.unknown': 'ID is not allowed',
+  }),
+  name: Joi.string().required().messages({
+    'string.empty': 'Name is required',
 })
+});

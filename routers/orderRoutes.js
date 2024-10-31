@@ -7,12 +7,14 @@ import {
     getAllOrders,
     updateOrder,
 } from "../controllers/orderController.js"
+import { validateCreateOrder, validateUpdateOrder } from '../middleware/validationMiddleware.js';
 
 export const orderRouter = express.Router()
 
-orderRouter.route("/").get(getAllOrders).post(createOrder)
-orderRouter
-    .route("/:id")
+orderRouter.route("/")
+    .get(getAllOrders)
+    .post(validateCreateOrder, createOrder); // Validation middleware
+    orderRouter.route("/:id")
     .get(getOrderById)
-    .patch(updateOrder)
-    .delete(deleteOrder)
+    .patch(validateUpdateOrder, updateOrder) // Validation middleware
+    .delete(deleteOrder);

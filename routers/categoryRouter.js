@@ -6,11 +6,14 @@ import {
     updateCategory,
     deleteCategory,
 } from "../controllers/categoryController.js"
+import { validateCreateCategory, validateUpdateCategory } from '../middleware/validationMiddleware.js';
 
 export const categoryRouter = express.Router()
 
-categoryRouter.get("/", getCategories)
-categoryRouter.get("/:id", getCategoryById)
-categoryRouter.post("/", createCategory)
-categoryRouter.put("/:id", updateCategory)
-categoryRouter.delete("/:id", deleteCategory)
+// Validation middleware
+categoryRouter.post('/', validateCreateCategory, createCategory); 
+categoryRouter.put('/:id', validateUpdateCategory, updateCategory);
+// Without validation middleware
+categoryRouter.get('/', getCategories);
+categoryRouter.get('/:id', getCategoryById);
+categoryRouter.delete('/:id', deleteCategory);
