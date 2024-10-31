@@ -6,11 +6,14 @@ import {
     updateProduct,
     deleteProduct,
 } from "../controllers/productController.js"
+import { validateCreateProduct, validateUpdateProduct } from '../middleware/validationMiddleware.js';
 
-export const productRouter = express.Router()
+export const productsRouter = express.Router();
 
-productRouter.get("/", getProducts)
-productRouter.get("/:id", getProductById)
-productRouter.post("/", createProduct)
-productRouter.put("/:id", updateProduct)
-productRouter.delete("/:id", deleteProduct)
+// Validation middleware
+productsRouter.post('/', validateCreateProduct, createProduct);
+productsRouter.put('/:id', validateUpdateProduct, updateProduct);
+// Without validation middleware
+productsRouter.get('/', getProducts);
+productsRouter.get('/:id', getProductById);
+productsRouter.delete('/:id', deleteProduct);

@@ -10,11 +10,11 @@ export const createProductsSchema = Joi.object({
         "string.empty": "Description is required",
         "string.min": "Description should have a minimum length of 2",
     }),
-    price: Joi.number().integer().min(0).required().messages({
+    price: Joi.number().min(0).required().messages({
         "number.empty": "Price is required",
         "number.min": "Price should be a positive number",
     }),
-    categoryId: Joi.number().required(),
+    categoryid: Joi.number().integer().required(),
 })
 
 export const updateProductsSchema = Joi.object({
@@ -27,9 +27,9 @@ export const updateProductsSchema = Joi.object({
         "string.empty": "Description is required",
         "string.min": "Description should have a minimum length of 2",
     }),
-    price: Joi.number().integer().min(0).required().messages({
+    price: Joi.number().min(0).required().messages({
         "number.empty": "Price is required",
         "number.min": "Price should be a positive number",
     }),
-    categoryId: Joi.number().required(),
+    categoryid: Joi.number().integer().required(),
 })
