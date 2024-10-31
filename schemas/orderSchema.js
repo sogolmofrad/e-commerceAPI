@@ -27,11 +27,11 @@ export const createOrderSchema = Joi.object({
       "array.base": "Products must be an array.",
       "any.required": "Products are required.",
     }),
-  total: Joi.number().positive().required().messages({
-      "number.base": "Total must be a number.",
-      "number.positive": "Total must be a positive number.",
-      "any.required": "Total is required.",
-    }),
+  // total: Joi.number().positive().required().messages({
+  //     "number.base": "Total must be a number.",
+  //     "number.positive": "Total must be a positive number.",
+  //     "any.required": "Total is required.",
+  //   }),
 });
 
 export const updateOrderSchema = Joi.object({
@@ -55,8 +55,8 @@ export const updateOrderSchema = Joi.object({
     .optional().messages({
       "array.base": "Products must be an array.",
     }),
-  total: Joi.number().positive().optional().messages({
-      "number.base": "Total must be a number.",
-      "number.positive": "Total must be a positive number.",
-    }),
+  // total: Joi.number().positive().optional().messages({
+  //     "number.base": "Total must be a number.",
+  //     "number.positive": "Total must be a positive number.",
+  //   }),
 });
