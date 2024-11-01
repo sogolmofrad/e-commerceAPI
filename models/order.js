@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import User from "./User.js";
-import Product from "./Product.js"; 
+import Product from "./product.js"; 
 import sequelize from "../db/db.js";
 import OrderProduct from "./OrderProduct.js";
 
