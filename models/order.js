@@ -1,6 +1,8 @@
-import { DataTypes } from "sequelize"
-import User from "./User.js"
-import sequelize from "../db/db.js"
+import { DataTypes } from "sequelize";
+import User from "./User.js";
+import Product from "./Product.js"; 
+import sequelize from "../db/db.js";
+import OrderProduct from "./OrderProduct.js";
 
 const Order = sequelize.define(
     "Order",
@@ -20,20 +22,32 @@ const Order = sequelize.define(
         },
         products: {
             type: DataTypes.JSONB,
-            allowNull: false,
+            allowNull: true,
         },
         total: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            type: DataTypes.FLOAT,
+            allowNull: true,
         },
     },
     {
         tableName: "orders",
         timestamps: false,
-    },
-)
+    }
+);
+//// Changes/////////////////////////////////////////////////////////////////////////
+Order.belongsToMany(Product, {
+    through: OrderProduct, 
+    foreignKey: "orderId", 
+    otherKey: "productId" 
+});
 
-User.hasMany(Order, { foreignKey: "userid" })
-Order.belongsTo(User, { foreignKey: "userid" })
+Product.belongsToMany(Order, {
+    through: OrderProduct, 
+    foreignKey: "productId", 
+    otherKey: "orderId" 
+});
 
-export default Order
+User.hasMany(Order, { foreignKey: "userid" });
+Order.belongsTo(User, { foreignKey: "userid" });
+
+export default Order;

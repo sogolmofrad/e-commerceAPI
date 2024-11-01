@@ -1,4 +1,6 @@
-import Order from "../models/Order.js"
+import Order from "../models/Order.js";
+import Product from "../models/Product.js";
+import OrderProduct from "../models/OrderProduct.js"; 
 
 export const getAllOrders = async (req, res) => {
     const orders = await Order.findAll({ order: [["id", "ASC"]] })
@@ -32,21 +34,43 @@ export const getOrderById = async ({ params }, res) => {
         })
     }
 }
-
+// Changes/////////////////////////////////////////////////////////////////////////
 export const createOrder = async (req, res) => {
+    const { userid, products } = req.body; 
+    const productsData = products && products.length > 0 ? products : null;
     try {
-        const createdOrder = await Order.create(req.body)
+        const createdOrder = await Order.create({ userid, products: productsData });
+        let total = 0;
+        if (productsData) {
+            for (const item of productsData) {
+                const product = await Product.findByPk(item.productId);
+                if (product) {
+                    const itemTotal = product.price * item.quantity;
+                    total += itemTotal;
+
+                    await OrderProduct.create({
+                        orderId: createdOrder.id,
+                        productId: item.productId,
+                        quantity: item.quantity,
+                    });
+                }
+            }
+        }
+
+        createdOrder.total = total > 0 ? total : 0; 
+        await createdOrder.save();
+
         return res.status(200).json({
             data: createdOrder.toJSON(),
-        })
+        });
     } catch (error) {
         return res.status(500).json({
             message: "Error! Could not create order",
-            details: error,
-        })
+            details: error.message || error,
+        });
     }
-}
-
+};
+/////////////////////////////////////////////////////////////////////////
 export const updateOrder = async (req, res) => {
     console.log("update", req.body)
 
