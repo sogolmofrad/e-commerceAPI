@@ -1,7 +1,7 @@
-import Category from "./Category"
-import products from "./Product"
+import Category from "./category"
+import Product from "./product"
 
-Category.hasMany(products, { foreignKey: "categoryId", as: "id" })
-Category.hasMany(products, { foreignKey: "categoryName", as: "name" })
-products.belongsTo(Category, { foreignKey: "categoryId", as: "id" })
-products.belongsTo(Category, { foreignKey: "categoryName", as: "name" })
+Category.hasMany(Product, { foreignKey: "categoryId", as: "id" })
+Category.hasMany(Product, { foreignKey: "categoryName", as: "name" })
+Product.belongsTo(Category, { foreignKey: "categoryId", as: "id" })
+Product.belongsTo(Category, { foreignKey: "categoryName", as: "name" })
